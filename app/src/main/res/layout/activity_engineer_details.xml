@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:fitsSystemWindows="true"
+        tools:context=".engineers.EngineerDetailsActivity"
+        android:background="@color/profileBackground"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout"
+            android:background="@drawable/profile_bk">
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/avatar"
+                app:civ_border_color="#CBA5A5A5"
+                app:civ_border_width="1dp"
+                app:civ_shadow="true"
+                app:civ_shadow_color="#8BC34A"
+                app:civ_shadow_radius="2dp" />
+            <TextView
+                android:id="@+id/tv_eng_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Engineer Name"
+                android:textColor="@android:color/white"
+                android:textSize="28dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_eng_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Engineer Job Side"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <TextView
+                    style="@style/headerText"
+                    android:text="Engineer Info"
+                    android:layout_marginBottom="10dp"/>
+                <RelativeLayout style="@style/profileDetailsLayout">
+                    <ImageView
+                        android:id="@+id/nameImageView"
+                        android:src="@drawable/ic_name"
+                        style="@style/profileDetailsImage" />
+                    <TextView
+                        android:id="@+id/nameTextView"
+                        android:text="Skill"
+                        android:layout_toRightOf="@id/nameImageView"
+                        style="@style/profileDetailsTextMain" />
+                    <TextView
+                        android:id="@+id/tv_eng_skills"
+                        android:text="developer"
+                        android:layout_toRightOf="@id/nameImageView"
+                        style="@style/profileDetailsMiniText" />
+                </RelativeLayout>
+                <View style="@style/proifleDetailsView" />
+                <RelativeLayout style="@style/profileDetailsLayout">
+                    <ImageView
+                        android:id="@+id/mobileImageView"
+                        android:src="@drawable/ic_mobile"
+                        style="@style/profileDetailsImage" />
+                    <TextView
+                        android:text="Location"
+                        android:layout_toRightOf="@id/mobileImageView"
+                        style="@style/profileDetailsTextMain"/>
+                    <TextView
+                        android:id="@+id/tv_eng_location"
+                        android:text="-"
+                        android:layout_toRightOf="@id/mobileImageView"
+                        style="@style/profileDetailsMiniText" />
+                </RelativeLayout>
+                <View style="@style/proifleDetailsView" />
+                <RelativeLayout style="@style/profileDetailsLayout">
+                    <ImageView
+                        android:id="@+id/emailImageView"
+                        android:src="@drawable/ic_email"
+                        style="@style/profileDetailsImage" />
+                    <TextView
+                        android:text="Email"
+                        android:layout_toRightOf="@id/emailImageView"
+                        style="@style/profileDetailsTextMain" />
+                    <TextView
+                        android:id="@+id/tv_eng_email"
+                        android:text="developer@appsnipp.com"
+                        android:layout_toRightOf="@id/emailImageView"
+                        style="@style/profileDetailsMiniText" />
+                </RelativeLayout>
+                <View style="@style/proifleDetailsView" />
+                <RelativeLayout style="@style/profileDetailsLayout">
+                    <ImageView
+                        android:id="@+id/dobImageView"
+                        android:src="@drawable/ic_dob"
+                        style="@style/profileDetailsImage" />
+                    <TextView
+                        android:text="D.O.B"
+                        android:layout_toRightOf="@id/dobImageView"
+                        style="@style/profileDetailsTextMain" />
+                    <TextView
+                        android:id="@+id/tv_eng_dob"
+                        android:text="12-05-1990"
+                        android:layout_toRightOf="@id/dobImageView"
+                        style="@style/profileDetailsMiniText" />
+                </RelativeLayout>
+                <View style="@style/proifleDetailsView" />
+                <Button
+                    android:id="@+id/btn_hire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="Hire"
+                    android:textColor="#ffffff"
+                    style="@style/buttonCorner" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>
