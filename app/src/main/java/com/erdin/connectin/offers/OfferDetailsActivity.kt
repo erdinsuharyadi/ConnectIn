@@ -3,6 +3,7 @@ package com.erdin.connectin.offers
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.erdin.connectin.R
@@ -34,5 +35,15 @@ class OfferDetailsActivity : AppCompatActivity() {
         binding.tvProjectFee.text = extras.fee
         binding.tvCreatedAt.text = extras.created
         binding.tvOfferStatus.text = statusProject
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

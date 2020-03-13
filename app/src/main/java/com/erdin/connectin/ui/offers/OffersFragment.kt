@@ -41,6 +41,7 @@ class OffersFragment : Fragment() {
         offersViewModel = ViewModelProvider(this).get(OffersViewModel::class.java)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_offers, container, false)
+        binding.toolbar.setTitle("Offers")
         binding.rvOffers.adapter = OffersAdapter()
         binding.rvOffers.layoutManager = LinearLayoutManager(parentFragment?.context, RecyclerView.VERTICAL, false)
 
@@ -57,6 +58,10 @@ class OffersFragment : Fragment() {
     fun subscribeLiveData() {
         offersViewModel.offersLiveData.observe(viewLifecycleOwner, Observer {
             (binding.rvOffers.adapter as OffersAdapter).addList(it)
+        })
+
+        offersViewModel.isLoadingLiveData.observe(viewLifecycleOwner, Observer {
+            binding.pbOfffers.visibility = if(it) View.VISIBLE else View.GONE
         })
     }
 }

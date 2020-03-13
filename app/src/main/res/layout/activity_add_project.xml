@@ -51,21 +51,11 @@
                 android:inputType="textEmailAddress"
                 android:backgroundTint="@color/colorPrimary"/>
 
-            <EditText
-                android:id="@+id/et_period"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Period"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:inputType="text"
-                android:backgroundTint="@color/colorPrimary"/>
-
             <TextView
                 android:id="@+id/tv_title_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                android:text="Deadline"
                 android:clickable="true"
                 android:textSize="15sp"
                 android:layout_marginHorizontal="20dp"

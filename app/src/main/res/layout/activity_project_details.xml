@@ -61,29 +61,13 @@
                     app:srcCompat="@drawable/ic_last_page_black_24dp"
                     style="@style/profileDetailsImage" />
                 <TextView
-                    android:text="Period"
+                    android:text="Estimated Deadline"
                     android:layout_toRightOf="@id/emailImageView"
                     style="@style/projectDetailsMiniText" />
                 <TextView
                     android:id="@+id/tv_project_period"
                     android:text="developer@appsnipp.com"
                     android:layout_toRightOf="@id/emailImageView"
-                    style="@style/projectDetailsTextMain" />
-            </RelativeLayout>
-            <View style="@style/proifleDetailsView" />
-            <RelativeLayout style="@style/profileDetailsLayout">
-                <ImageView
-                    android:id="@+id/dobImageView"
-                    app:srcCompat="@drawable/ic_last_page_black_24dp"
-                    style="@style/profileDetailsImage" />
-                <TextView
-                    android:text="Estimated Deadline"
-                    android:layout_toRightOf="@id/dobImageView"
-                    style="@style/projectDetailsMiniText" />
-                <TextView
-                    android:id="@+id/tv_project_deadline"
-                    android:text="12-05-1990"
-                    android:layout_toRightOf="@id/dobImageView"
                     style="@style/projectDetailsTextMain" />
             </RelativeLayout>
             <View style="@style/proifleDetailsView" />

@@ -1,19 +1,22 @@
 package com.erdin.connectin.projects
 
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.erdin.connectin.ApiClient
+import com.erdin.connectin.MainActivity
 import com.erdin.connectin.R
 import com.erdin.connectin.SharedPreference
 import com.erdin.connectin.databinding.ActivityAddProjectBinding
-import com.erdin.connectin.hiring.AddHireApiService
-import com.erdin.connectin.hiring.AddHireViewModel
+import com.erdin.connectin.ui.projects.ProjectsFragment
 import java.util.*
+
 
 class AddProjectActivity : AppCompatActivity() {
 
@@ -33,6 +36,8 @@ class AddProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_project)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel = ViewModelProvider(this).get(AddProjectViewModel::class.java)
 
@@ -55,14 +60,14 @@ class AddProjectActivity : AppCompatActivity() {
             showDatePicker()
         }
 
-        val projectName = binding.etProjectName.text.toString()
-        val projectDesc = binding.etDescription.text.toString()
-        val period = binding.etPeriod.text.toString()
         val idCompany = sharedPreference.getValueInt(SharedPreference.KEY_COMP)
 
         binding.btnSubmit.setOnClickListener {
-            viewModel.addProjectApi(binding.etProjectName.text.toString(), binding.etDescription.text.toString(), binding.etPeriod.text.toString(), selectedDate, "${idCompany}")
+        Log.d("tgs", selectedDate)
+            viewModel.addProjectApi(binding.etProjectName.text.toString(), binding.etDescription.text.toString(), selectedDate, "", "${idCompany}")
         }
+
+        subscribeLiveData()
     }
 
     private fun showDatePicker() {
@@ -72,9 +77,31 @@ class AddProjectActivity : AppCompatActivity() {
                 year = selectedYear
                 month = selectedMonth
                 day = selectedDay
-                selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
+                selectedDate = "$selectedDay-$selectedMonth-$selectedYear"
                 binding.tvDate.text = selectedDate
             }, year, month, day
         ).show()
+    }
+
+    private fun subscribeLiveData() {
+        viewModel.addProjectLiveData.observe(this, androidx.lifecycle.Observer {
+            if (it) {
+                val resulIntent = Intent()
+                setResult(Activity.RESULT_OK, resulIntent)
+                onBackPressed()
+                finish()
+            }
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

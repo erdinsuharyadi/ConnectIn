@@ -3,6 +3,7 @@ package com.erdin.connectin.hiring
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -31,13 +32,17 @@ class AddHireActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_hire)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         viewModel = ViewModelProvider(this).get(AddHireViewModel::class.java)
 
-        initSpinnerProject()
+        viewModel.getSpinnerProject()
 
-        val service = ApiClient.getApiClient(this)?.create(AddHireApiService::class.java)
+        val hireService = ApiClient.getApiClient(this)?.create(AddHireApiService::class.java)
+        val projectService = ApiClient.getApiClient(this)?.create(ProjectsApiService::class.java)
         viewModel.setContext(this)
-        viewModel.setAddHireService(service)
+        viewModel.setAddHireService(hireService)
+        viewModel.setProjectsService(projectService)
 
         binding.spinnerProject.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -51,59 +56,18 @@ class AddHireActivity : AppCompatActivity() {
                 id: Long
             ) {
                 projectId = listSpin[position].idProject.toString()
-                Toast.makeText(this@AddHireActivity, "Spinner selected : ${projectId}", Toast.LENGTH_LONG).show()
             }
         }
 
         val engineerId = intent.extras?.getString("id_eng")
-        val projectFee = binding.etProjectFee.text.toString()
-        val projectJob = binding.etProjectJob.text.toString()
-
+        val projectFee = binding.etProjectFee.text
+        val projectJob = binding.etProjectJob.text
 
         binding.btnSubmit.setOnClickListener {
-            viewModel.addHire(projectId, engineerId, projectFee, projectJob)
+            viewModel.addHire(projectId, engineerId, "$projectFee", "$projectJob")
         }
 
         subscribeLiveData()
-
-
-
-    }
-
-
-    private fun initSpinnerProject() {
-        val service = ApiClient.getApiClient(this)?.create(ProjectsApiService::class.java)
-
-        val coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-
-        coroutineScope.launch {
-
-
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service?.getProjectList()
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (response is ProjectsResponse) {
-
-                listSpin = response.result?.map {
-                    SpinProject(it.idProject, it.projectName)
-                }
-
-                val adapter = ArrayAdapter(this@AddHireActivity,
-                    android.R.layout.simple_spinner_item, listSpin.map { it.projectName })
-
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.spinnerProject.adapter = adapter
-
-
-            } else if (response is Throwable) {
-                Log.d("errorApi", response.message ?: "Error")
-            }
-        }
     }
 
     private fun subscribeLiveData() {
@@ -113,5 +77,24 @@ class AddHireActivity : AppCompatActivity() {
                 finish()
             }
         })
+
+        viewModel.listSpinLiveData.observe(this, Observer {
+            listSpin = it
+        })
+
+        viewModel.adapterSpinnerLiveData.observe(this, Observer {
+            binding.spinnerProject.adapter = it
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -14,6 +14,7 @@ import kotlin.coroutines.CoroutineContext
 class OffersViewModel : ViewModel(), CoroutineScope {
 
     val offersLiveData = MutableLiveData<List<OffersModel>>()
+    val isLoadingLiveData = MutableLiveData<Boolean>()
 
     private lateinit var mContext: Context
     private lateinit var service: OffersApiService
@@ -34,6 +35,7 @@ class OffersViewModel : ViewModel(), CoroutineScope {
 
     fun offersApi() {
         launch {
+            isLoadingLiveData.value = true
             val response = withContext(Dispatchers.IO) {
                 try {
                     sharedPreference = SharedPreference(mContext)
@@ -66,6 +68,7 @@ class OffersViewModel : ViewModel(), CoroutineScope {
                 }
 
                 offersLiveData.value = list
+                isLoadingLiveData.value = false
 
             } else if (response is Throwable) {
                 Log.d("errorApi", response.message ?: "Error")

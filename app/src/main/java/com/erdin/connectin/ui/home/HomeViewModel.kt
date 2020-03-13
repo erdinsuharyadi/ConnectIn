@@ -16,6 +16,8 @@ import kotlin.coroutines.CoroutineContext
 class HomeViewModel : ViewModel(), CoroutineScope {
 
     val engineerLiveData = MutableLiveData<List<EngineersModel>>()
+    val isLoadingLiveData = MutableLiveData<Boolean>()
+
     private lateinit var mContext: Context
     private lateinit var service: EngineersApiService
 
@@ -32,18 +34,19 @@ class HomeViewModel : ViewModel(), CoroutineScope {
         }
     }
 
-    fun engineerListApi() {
+    fun engineerListApi(skill: String?) {
         launch {
-
+            isLoadingLiveData.value = true
             val response = withContext(Dispatchers.IO) {
                 try {
-                    service.getEngineer()
+                    service.getEngineer(skill)
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
             }
 
             if (response is EngineersResponse) {
+
                 val list = response.result.map {
                     EngineersModel(it.idEngineer.orEmpty(),it.nameEngineer.orEmpty(),
                         it.idUser.orEmpty(),it.email.orEmpty(),it.photo.orEmpty(),it.job.orEmpty(),
@@ -51,7 +54,7 @@ class HomeViewModel : ViewModel(), CoroutineScope {
                 }
 
                 engineerLiveData.value = list
-
+                isLoadingLiveData.value = false
             } else if (response is Throwable) {
                 Log.d("errorApi", response.message ?: "Error")
             }

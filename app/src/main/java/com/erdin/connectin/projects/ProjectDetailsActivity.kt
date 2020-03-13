@@ -1,6 +1,7 @@
 package com.erdin.connectin.projects
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.erdin.connectin.R
@@ -22,9 +23,20 @@ class ProjectDetailsActivity : AppCompatActivity() {
         binding.tvProjectName.text = extras.projectName
         binding.tvProjectDesc.text = extras.description
         binding.tvProjectPeriod.text = extras.period
-        binding.tvProjectDeadline.text = extras.deadline
         binding.tvProjectDate.text = extras.created
 
-
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
 }
