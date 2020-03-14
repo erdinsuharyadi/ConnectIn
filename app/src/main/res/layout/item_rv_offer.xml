@@ -21,15 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp">
 
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/iv_profile"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/ava"
@@ -47,40 +47,28 @@
                 <TextView
                     android:id="@+id/tv_profile_name"
                     android:text="Engineer Name"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    />
-
-                <View
-                    android:id="@+id/hr_line"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"
                     />
 
                 <TextView
                     android:id="@+id/tv_project_name"
                     android:text="Project Name"
-                    android:textSize="18sp"
+                    android:textSize="19sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
-
-                <View
-                    android:id="@+id/hr_line2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"
                     />
 
                 <TextView
                     android:id="@+id/tv_project_date"
                     android:text="Project Date"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    />
             </LinearLayout>
 
         </RelativeLayout>

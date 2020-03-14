@@ -65,10 +65,84 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
+
                 <TextView
                     style="@style/headerText"
                     android:text="Engineer Info"
                     android:layout_marginBottom="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp">
+                    <LinearLayout
+                        android:id="@+id/ll_project"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tv_total_project"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:textColor="@color/blackTextColor"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textAlignment="center"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Project"
+                            android:textSize="16sp"
+                            android:textAlignment="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_success_project"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginHorizontal="20dp">
+                        <TextView
+                            android:id="@+id/tv_success_project"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:textColor="@color/blackTextColor"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textAlignment="center"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Success Project"
+                            android:textSize="16sp"
+                            android:textAlignment="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_rate_project"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tv_rate_project"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="90%"
+                            android:textColor="@color/blackTextColor"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textAlignment="center"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Rate Project"
+                            android:textSize="16sp"
+                            android:textAlignment="center"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <View style="@style/proifleDetailsView" />
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/nameImageView"

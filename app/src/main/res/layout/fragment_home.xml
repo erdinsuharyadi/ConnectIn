@@ -11,7 +11,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="?attr/actionBarSize">
             <EditText
                 android:id="@+id/et_search"
                 android:hint="Search Skill"
@@ -20,12 +21,16 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="5dp"
+                android:paddingVertical="8dp"
                 android:background="@drawable/et_corner" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_engineers"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                />
         </LinearLayout>
 
         <ProgressBar

@@ -29,11 +29,12 @@ class EngineersAdapter : RecyclerView.Adapter<EngineersAdapter.EngineerHolder>()
 
     override fun onBindViewHolder(holder: EngineerHolder, position: Int) {
         val item = items[position]
-        holder.binding.tvHeroName.text = item.nameEngineer
+        holder.binding.tvEngineerName.text = item.nameEngineer
+        holder.binding.tvEngineerJob.text = item.job
 
         Picasso.get()
             .load(item.photo)
-            .into(holder.binding.ivImgHero)
+            .into(holder.binding.ivEngineerPhoto)
 
         val mContext = holder.binding.cvHero.context
 
@@ -48,6 +49,9 @@ class EngineersAdapter : RecyclerView.Adapter<EngineersAdapter.EngineerHolder>()
             intent.putExtra("email_eng", item.email)
             intent.putExtra("dob_eng", item.dob)
             intent.putExtra("showcase_eng", item.showcase)
+            intent.putExtra("total_project", item.totalProject)
+            intent.putExtra("success_project", item.successProject)
+            intent.putExtra("rate_project", item.rateSuccess)
             mContext.startActivity(intent)
         }
     }

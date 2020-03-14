@@ -35,6 +35,9 @@ class EngineerDetailsActivity : AppCompatActivity() {
 
         binding.tvEngName.text = extras?.getString("name_eng")
         binding.tvEngJob.text = extras?.getString("job_eng")
+        binding.tvTotalProject.text = extras?.getString("total_project")
+        binding.tvSuccessProject.text = extras?.getString("success_project")
+        binding.tvRateProject.text = "${extras?.getString("rate_project")} %"
         binding.tvEngSkills.text = extras?.getString("skill_eng")
         binding.tvEngDob.text = extras?.getString("dob_eng")
         binding.tvEngEmail.text = extras?.getString("email_eng")

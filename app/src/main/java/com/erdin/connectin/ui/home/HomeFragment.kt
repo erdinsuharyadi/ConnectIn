@@ -6,8 +6,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,6 +18,9 @@ import com.erdin.connectin.R
 import com.erdin.connectin.databinding.FragmentHomeBinding
 import com.erdin.connectin.engineers.EngineersAdapter
 import com.erdin.connectin.engineers.EngineersApiService
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import kotlinx.coroutines.*
 
 
@@ -42,10 +43,14 @@ class HomeFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
-        binding.rvEngineers.adapter = EngineersAdapter()
-        binding.rvEngineers.layoutManager = GridLayoutManager(parentFragment?.context, 3, RecyclerView.VERTICAL, false)
+        val flexLayoutManager = FlexboxLayoutManager(context)
+        flexLayoutManager.flexDirection = FlexDirection.ROW
+        flexLayoutManager.justifyContent = JustifyContent.SPACE_BETWEEN
 
-        binding.etSearch!!.addTextChangedListener(object : TextWatcher {
+        binding.rvEngineers.adapter = EngineersAdapter()
+        binding.rvEngineers.layoutManager = flexLayoutManager
+
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
             private var searchFor = ""
 
             override fun afterTextChanged(s: Editable?) = Unit

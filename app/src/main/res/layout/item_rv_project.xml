@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         cardview:cardCornerRadius="10dp">
 
         <RelativeLayout
@@ -32,7 +32,7 @@
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/ava"
+                cardview:srcCompat="@drawable/ic_access_time_black_24dp"
                 app:civ_border_color="#CBA5A5A5"
                 app:civ_border_width="1dp"
                 app:civ_shadow="true"
@@ -43,29 +43,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_toRightOf="@+id/iv_profile">
+                android:layout_toRightOf="@+id/iv_profile"
+                >
 
                 <TextView
                     android:id="@+id/tv_project_name"
                     android:text="Project Name"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
-
-                <View
-                    android:id="@+id/hr_line2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"
                     />
 
                 <TextView
                     android:id="@+id/tv_project_date"
                     android:text="Project Date"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"/>
             </LinearLayout>
 
         </RelativeLayout>

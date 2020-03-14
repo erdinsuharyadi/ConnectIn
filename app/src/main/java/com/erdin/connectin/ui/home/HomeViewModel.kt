@@ -50,7 +50,7 @@ class HomeViewModel : ViewModel(), CoroutineScope {
                 val list = response.result.map {
                     EngineersModel(it.idEngineer.orEmpty(),it.nameEngineer.orEmpty(),
                         it.idUser.orEmpty(),it.email.orEmpty(),it.photo.orEmpty(),it.job.orEmpty(),
-                        it.nameSkill.orEmpty(), it.dob.orEmpty(), it.showcase.orEmpty(), it.location.orEmpty())
+                        it.nameSkill.orEmpty(), it.dob.orEmpty(), it.showcase.orEmpty(), it.location.orEmpty(), it.totalProject.orEmpty(), it.successProject.orEmpty(), it.rateSuccess.orEmpty())
                 }
 
                 engineerLiveData.value = list

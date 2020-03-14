@@ -17,7 +17,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
-                app:srcCompat="@drawable/ic_header_auth"
+                app:srcCompat="@drawable/ic_add_project"
                 />
 
             <TextView
@@ -30,16 +30,29 @@
                 android:textStyle="bold"
                 android:layout_marginHorizontal="20dp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Project Name"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp" />
+
             <EditText
                 android:id="@+id/et_project_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Project Name"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
                 android:inputType="text"
                 android:backgroundTint="@color/colorPrimary"
                 />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Project Description"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp" />
 
             <EditText
                 android:id="@+id/et_description"
@@ -47,7 +60,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Project Description"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
                 android:inputType="textEmailAddress"
                 android:backgroundTint="@color/colorPrimary"/>
 
@@ -68,7 +80,9 @@
                 android:layout_height="wrap_content"
                 android:text="Choose Date"
                 android:clickable="true"
+                android:textSelectHandle="@color/colorAccent"
                 android:textSize="18sp"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/colorPrimary"/>

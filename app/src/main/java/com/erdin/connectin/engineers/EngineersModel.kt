@@ -9,4 +9,7 @@ data class EngineersModel(val idEngineer: String,
                           val nameSkill: String,
                           val dob: String,
                           val showcase: String,
-                          val location: String)
+                          val location: String,
+                          val totalProject: String,
+                          val successProject: String,
+                          val rateSuccess: String)
