@@ -5,12 +5,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import com.erdin.connectin.R
+import com.erdin.connectin.showcase.ShowcaseActivity
 import com.erdin.connectin.databinding.ActivityEngineerDetailsBinding
 import com.erdin.connectin.hiring.AddHireActivity
 import com.squareup.picasso.Picasso
@@ -42,6 +41,12 @@ class EngineerDetailsActivity : AppCompatActivity() {
         binding.tvEngDob.text = extras?.getString("dob_eng")
         binding.tvEngEmail.text = extras?.getString("email_eng")
         binding.tvEngLocation.text = extras?.getString("loc_eng")
+
+        binding.btnShowcase.setOnClickListener {
+            val intent = Intent(this, ShowcaseActivity::class.java)
+            intent.putExtra("showcase_eng", extras?.getString("showcase_eng"))
+            startActivity(intent)
+        }
 
 
         binding.btnHire.setOnClickListener {

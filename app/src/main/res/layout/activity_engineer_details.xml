@@ -209,11 +209,20 @@
                 </RelativeLayout>
                 <View style="@style/proifleDetailsView" />
                 <Button
-                    android:id="@+id/btn_hire"
+                    android:id="@+id/btn_showcase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Showcase"
+                    android:textColor="#ffffff"
+                    style="@style/buttonCorner" />
+                <Button
+                    android:id="@+id/btn_hire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginBottom="50dp"
                     android:text="Hire"
                     android:textColor="#ffffff"

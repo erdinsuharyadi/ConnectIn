@@ -45,6 +45,9 @@
         <activity
             android:name=".projects.AddProjectActivity"
             android:label="@string/title_add_project" />
+        <activity
+            android:name=".showcase.ShowcaseActivity"
+            android:label="@string/title_showcase"/>
     </application>
 
 </manifest>
