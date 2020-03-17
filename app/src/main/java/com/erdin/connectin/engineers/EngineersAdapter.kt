@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.erdin.connectin.FormatDate
 import com.erdin.connectin.R
 import com.erdin.connectin.databinding.ItemRvEngineerBinding
 import com.squareup.picasso.Picasso
@@ -38,6 +39,8 @@ class EngineersAdapter : RecyclerView.Adapter<EngineersAdapter.EngineerHolder>()
 
         val mContext = holder.binding.cvHero.context
 
+        val formatDate = FormatDate.dateFormat(item.dob)
+
         holder.binding.cvHero.setOnClickListener {
             val intent = Intent(mContext, EngineerDetailsActivity::class.java)
             intent.putExtra("id_eng", item.idEngineer)
@@ -47,7 +50,7 @@ class EngineersAdapter : RecyclerView.Adapter<EngineersAdapter.EngineerHolder>()
             intent.putExtra("skill_eng", item.nameSkill)
             intent.putExtra("loc_eng", item.location)
             intent.putExtra("email_eng", item.email)
-            intent.putExtra("dob_eng", item.dob)
+            intent.putExtra("dob_eng", formatDate)
             intent.putExtra("showcase_eng", item.showcase)
             intent.putExtra("total_project", item.totalProject)
             intent.putExtra("success_project", item.successProject)

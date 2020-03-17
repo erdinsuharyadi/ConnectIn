@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.erdin.connectin.FormatDate
 import com.erdin.connectin.R
 import com.erdin.connectin.databinding.ItemRvOfferBinding
 import com.squareup.picasso.Picasso
@@ -29,9 +30,10 @@ class OffersAdapter: RecyclerView.Adapter<OffersAdapter.OffersHolder>() {
 
     override fun onBindViewHolder(holder: OffersHolder, position: Int) {
         val items = items[position]
+        val formatDate = FormatDate.dateFormat(items.created)
         holder.binding.tvProfileName.text = items.nameEngineer
         holder.binding.tvProjectName.text = items.projectName
-        holder.binding.tvProjectDate.text = items.created
+        holder.binding.tvProjectDate.text = formatDate
 
         Picasso.get()
             .load(items.photo)

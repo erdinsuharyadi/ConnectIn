@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.erdin.connectin.FormatDate
 import com.erdin.connectin.R
 import com.erdin.connectin.databinding.ActivityOfferDetailsBinding
 
@@ -29,11 +30,12 @@ class OfferDetailsActivity : AppCompatActivity() {
             else -> "Decline"
         }
 
+        val formatDate = FormatDate.dateFormat(extras.created)
         binding.tvProjectName.text = extras.projectName
         binding.tvEngName.text = extras.nameEngineer
         binding.tvProjectJob.text = extras.projectJob
         binding.tvProjectFee.text = extras.fee
-        binding.tvCreatedAt.text = extras.created
+        binding.tvCreatedAt.text = formatDate
         binding.tvOfferStatus.text = statusProject
     }
 
