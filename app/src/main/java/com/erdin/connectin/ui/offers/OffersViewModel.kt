@@ -16,15 +16,14 @@ class OffersViewModel : ViewModel(), CoroutineScope {
     val offersLiveData = MutableLiveData<List<OffersModel>>()
     val isLoadingLiveData = MutableLiveData<Boolean>()
 
-    private lateinit var mContext: Context
     private lateinit var service: OffersApiService
     private lateinit var sharedPreference: SharedPreference
 
     override val coroutineContext: CoroutineContext
         get() = Job() + Dispatchers.Main
 
-    fun setContext(context: Context) {
-        this.mContext = context
+    fun setSharedPreference(sharedPreference: SharedPreference) {
+        this.sharedPreference = sharedPreference
     }
 
     fun setOffersService(service: OffersApiService?) {
@@ -38,7 +37,6 @@ class OffersViewModel : ViewModel(), CoroutineScope {
             isLoadingLiveData.value = true
             val response = withContext(Dispatchers.IO) {
                 try {
-                    sharedPreference = SharedPreference(mContext)
                     service?.getOfferList(sharedPreference.getValueInt(SharedPreference.KEY_COMP).toString())
                 } catch (e: Throwable) {
                     e.printStackTrace()

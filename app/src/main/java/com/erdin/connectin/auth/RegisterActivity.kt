@@ -3,6 +3,7 @@ package com.erdin.connectin.auth
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -25,8 +26,6 @@ class RegisterActivity : AppCompatActivity() {
             R.layout.activity_register
         )
 
-
-        viewModel.setContext(this)
         val service = ApiClient.getApiClient(this)?.create(AuthApiService::class.java)
         viewModel.setRegisService(service!!)
 
@@ -48,9 +47,16 @@ class RegisterActivity : AppCompatActivity() {
     private fun subscribeLiveData() {
         viewModel.regisLiveData.observe(this, Observer {
             if(it) {
+                Toast.makeText(this, "Login Success", Toast.LENGTH_LONG).show()
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
+        })
+
+        viewModel.showToastLiveData.observe(this, Observer {
+            viewModel.msgToastLiveData.observe(this, Observer {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            })
         })
     }
 }

@@ -11,15 +11,13 @@ import kotlin.coroutines.CoroutineContext
 class AddProjectViewModel: ViewModel(), CoroutineScope {
 
     val addProjectLiveData = MutableLiveData<Boolean>()
+    val msgToastLiveData = MutableLiveData<String>()
+    val showToastLiveData = MutableLiveData<Boolean>()
+
     private lateinit var service: ProjectsApiService
-    private lateinit var mContext: Context
 
     override val coroutineContext: CoroutineContext
         get() = Job() + Dispatchers.Main
-
-    fun setContext(context: Context) {
-        this.mContext = context
-    }
 
     fun setAddProjectService(service: ProjectsApiService?) {
         if (service != null) {
@@ -31,12 +29,12 @@ class AddProjectViewModel: ViewModel(), CoroutineScope {
         launch {
             val response = withContext(Dispatchers.IO) {
                 try {
-                    Log.d("dtApi", "${projectName}, $projectDesc, $period, $idCompany, $deadline")
                     service?.addProject(projectName, projectDesc, period, "2020-06-20", idCompany)
                 } catch (e: Throwable) {
                     e.printStackTrace()
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(mContext, "Add hire failed!", Toast.LENGTH_LONG).show()
+                        msgToastLiveData.value = "Add Project failed!"
+                        showToastLiveData.value = true
                     }
                 }
             }
@@ -44,8 +42,6 @@ class AddProjectViewModel: ViewModel(), CoroutineScope {
             if(response is AddProjectResponse) {
                 if (response.result?.affectedRows == 1) {
                     addProjectLiveData.value = true
-
-                    Toast.makeText(mContext, "Add hire Success", Toast.LENGTH_LONG).show()
                 } else if (response is Throwable) {
                     Log.d("errorApi", response.message ?: "Error")
                 }

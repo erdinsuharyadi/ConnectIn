@@ -40,13 +40,12 @@ class AddHireActivity : AppCompatActivity() {
 
         val hireService = ApiClient.getApiClient(this)?.create(AddHireApiService::class.java)
         val projectService = ApiClient.getApiClient(this)?.create(ProjectsApiService::class.java)
-        viewModel.setContext(this)
         viewModel.setAddHireService(hireService)
         viewModel.setProjectsService(projectService)
 
         binding.spinnerProject.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
             override fun onItemSelected(
@@ -73,17 +72,24 @@ class AddHireActivity : AppCompatActivity() {
     private fun subscribeLiveData() {
         viewModel.addHireLiveData.observe(this, Observer {
             if(it) {
-                onBackPressed()
                 finish()
             }
         })
 
         viewModel.listSpinLiveData.observe(this, Observer {
             listSpin = it
+
+            val adapter = ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, it.map { it -> it.projectName })
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerProject.adapter = adapter
         })
 
-        viewModel.adapterSpinnerLiveData.observe(this, Observer {
-            binding.spinnerProject.adapter = it
+        viewModel.showToastLiveData.observe(this, Observer {
+            viewModel.msgToastLiveData.observe(this, Observer {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            })
         })
     }
 

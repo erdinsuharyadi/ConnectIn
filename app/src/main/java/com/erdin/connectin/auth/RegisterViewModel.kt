@@ -11,17 +11,13 @@ import kotlin.coroutines.CoroutineContext
 class RegisterViewModel : ViewModel(), CoroutineScope {
 
     val regisLiveData = MutableLiveData<Boolean>()
-
+    val msgToastLiveData = MutableLiveData<String>()
+    val showToastLiveData = MutableLiveData<Boolean>()
+    
     private lateinit var service: AuthApiService
-    private lateinit var mContext: Context
 
     override val coroutineContext: CoroutineContext
         get() = Job() + Dispatchers.Main
-
-
-    fun setContext(context: Context) {
-        this.mContext = context
-    }
 
     fun setRegisService(service: AuthApiService) {
         if (service != null) {
@@ -38,7 +34,8 @@ class RegisterViewModel : ViewModel(), CoroutineScope {
                     e.printStackTrace()
 
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(mContext, "Register failed!", Toast.LENGTH_LONG).show()
+                        msgToastLiveData.value = "Register failed!"
+                        showToastLiveData.value = true
                     }
                 }
             }
@@ -46,11 +43,8 @@ class RegisterViewModel : ViewModel(), CoroutineScope {
             if(response is RegisterResponse) {
                 if(response.status == 200) {
                     regisLiveData.value = true
-
-                    Toast.makeText(mContext, "Login Success", Toast.LENGTH_LONG).show()
                 }
             } else if (response is Throwable) {
-
                 Log.d("errorApi", response.message ?: "Error")
             }
         }

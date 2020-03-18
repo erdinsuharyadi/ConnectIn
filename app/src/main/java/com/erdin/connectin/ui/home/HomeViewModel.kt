@@ -18,15 +18,10 @@ class HomeViewModel : ViewModel(), CoroutineScope {
     val engineerLiveData = MutableLiveData<List<EngineersModel>>()
     val isLoadingLiveData = MutableLiveData<Boolean>()
 
-    private lateinit var mContext: Context
     private lateinit var service: EngineersApiService
 
     override val coroutineContext: CoroutineContext
         get() = Job() + Dispatchers.Main
-
-    fun setContext(context: Context) {
-        this.mContext = context
-    }
 
     fun setEngineerService(service: EngineersApiService?) {
         if (service != null) {

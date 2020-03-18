@@ -22,9 +22,10 @@ class ProfileViewModel : ViewModel(), CoroutineScope {
     val dataCompLocationLiveData = MutableLiveData<String>()
     val dataCompEmailLiveData = MutableLiveData<String>()
     val isLogoutLiveData = MutableLiveData<Boolean>()
+    val msgToastLiveData = MutableLiveData<String>()
+    val showToastLiveData = MutableLiveData<Boolean>()
 
     private lateinit var service: ProfileApiService
-    private lateinit var mContext: Context
     private lateinit var sharedPreference: SharedPreference
     private lateinit var mService: AuthApiService
 
@@ -32,8 +33,8 @@ class ProfileViewModel : ViewModel(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Job() + Dispatchers.Main
 
-    fun setContext(context: Context) {
-        this.mContext = context
+    fun setSharedPreference(sharedPreference: SharedPreference) {
+        this.sharedPreference = sharedPreference
     }
 
     fun setProfileService(service: ProfileApiService?) {
@@ -52,13 +53,13 @@ class ProfileViewModel : ViewModel(), CoroutineScope {
         launch {
             val response = withContext(Dispatchers.IO) {
                 try {
-                    sharedPreference = SharedPreference(mContext)
                     service?.getUserProfile(sharedPreference.getValueString(SharedPreference.KEY_USERNAME))
                 } catch (e: Throwable) {
                     e.printStackTrace()
 
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(mContext, "Get profile detail failed", Toast.LENGTH_LONG).show()
+                        msgToastLiveData.value = "Get profile detail failed"
+                        showToastLiveData.value = true
                     }
                 }
             }
@@ -83,7 +84,8 @@ class ProfileViewModel : ViewModel(), CoroutineScope {
                     e.printStackTrace()
 
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(mContext, "Username & Password is wrong", Toast.LENGTH_LONG).show()
+                        msgToastLiveData.value = "Username & Password is wrong"
+                        showToastLiveData.value = true
                     }
                 }
             }
@@ -91,7 +93,6 @@ class ProfileViewModel : ViewModel(), CoroutineScope {
             if (response is LogoutResponse) {
                 if (response.status == 200) {
                     sharedPreference.clearSharedPreference()
-
                     isLogoutLiveData.value = true
                 }
             }

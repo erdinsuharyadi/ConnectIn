@@ -16,16 +16,13 @@ class ProjectsViewModel : ViewModel(), CoroutineScope {
 
     val projectLiveData = MutableLiveData<List<ProjectsModel>>()
     val isLoadingLiveData = MutableLiveData<Boolean>()
+    val msgToastLiveData = MutableLiveData<String>()
+    val showToastLiveData = MutableLiveData<Boolean>()
 
     private lateinit var service: ProjectsApiService
-    private lateinit var mContext: Context
 
     override val coroutineContext: CoroutineContext
         get() = Job() + Dispatchers.Main
-
-    fun setContext(context: Context) {
-        this.mContext = context
-    }
 
     fun setService(service: ProjectsApiService?) {
         if (service != null) {
@@ -43,7 +40,8 @@ class ProjectsViewModel : ViewModel(), CoroutineScope {
                     e.printStackTrace()
 
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(mContext, "Get profile detail failed", Toast.LENGTH_LONG).show()
+                        msgToastLiveData.value = "Get project detail failed"
+                        showToastLiveData.value = true
                     }
                 }
             }

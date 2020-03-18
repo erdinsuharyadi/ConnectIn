@@ -79,7 +79,6 @@ class HomeFragment : Fragment() {
         val mContext = parentFragment?.context!!
         val service = ApiClient.getApiClient(mContext)?.create(EngineersApiService::class.java)
         homeViewModel.setEngineerService(service)
-        homeViewModel.setContext(mContext)
         homeViewModel.engineerListApi("")
         subscribeLiveData()
         return binding.root

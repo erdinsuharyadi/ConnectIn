@@ -4,7 +4,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-abstract class FormatDate() {
+class FormatDate {
 
     companion object {
         fun dateFormat(dateJson: String?): String? {
@@ -25,5 +25,7 @@ abstract class FormatDate() {
 
             return formattedDate
         }
+
+
     }
 }

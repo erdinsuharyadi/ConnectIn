@@ -32,6 +32,7 @@ class OffersFragment : Fragment() {
 
     private lateinit var binding: FragmentOffersBinding
     private lateinit var offersViewModel: OffersViewModel
+    private lateinit var sharedPreference: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +40,7 @@ class OffersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         offersViewModel = ViewModelProvider(this).get(OffersViewModel::class.java)
-
+        sharedPreference = SharedPreference(parentFragment?.context!!)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_offers, container, false)
         binding.toolbar.setTitle("Offers")
         binding.rvOffers.adapter = OffersAdapter()
@@ -47,7 +48,7 @@ class OffersFragment : Fragment() {
 
         val mContext = parentFragment?.context!!
         val service = ApiClient.getApiClient(mContext)?.create(OffersApiService::class.java)
-        offersViewModel.setContext(mContext)
+        offersViewModel.setSharedPreference(sharedPreference)
         offersViewModel.setOffersService(service)
         offersViewModel.offersApi()
         subscribeLiveData()

@@ -14,17 +14,18 @@ import kotlin.coroutines.CoroutineContext
 class LoginViewModel : ViewModel(), CoroutineScope {
 
     val isLoginLiveData = MutableLiveData<Boolean>()
+    val msgToastLiveData = MutableLiveData<String>()
+    val showToastLiveData = MutableLiveData<Boolean>()
 
     private lateinit var sharedPreference: SharedPreference
     private lateinit var service: AuthApiService
-    private lateinit var mContext: Context
+
 
     override val coroutineContext: CoroutineContext
         get() = Job() +Dispatchers.Main
 
-
-    fun setContext(context: Context) {
-        this.mContext = context
+    fun setSharedPreference(sharedPreference: SharedPreference) {
+        this.sharedPreference = sharedPreference
     }
 
     fun setLoginService(service: AuthApiService?) {
@@ -42,25 +43,23 @@ class LoginViewModel : ViewModel(), CoroutineScope {
                     e.printStackTrace()
 
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(mContext, "Username & Password is wrong", Toast.LENGTH_LONG).show()
+                        msgToastLiveData.value = "Username & Password is wrong"
+                        showToastLiveData.value = true
                     }
                 }
             }
 
             if (response is LoginResponse) {
                 if (response.result?.level == "1") {
-                    sharedPreference = SharedPreference(mContext)
                     sharedPreference.save(SharedPreference.KEY_TOKEN, response.result?.token)
                     sharedPreference.save(SharedPreference.KEY_COMP, response.result?.idCompany)
                     sharedPreference.save(SharedPreference.KEY_USERNAME, username)
                     sharedPreference.save(SharedPreference.KEY_LOGIN, true)
 
-
                     isLoginLiveData.value = true
-
-                    Toast.makeText(mContext, "Login Success", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(mContext, "You are not authorized", Toast.LENGTH_LONG).show()
+                    msgToastLiveData.value = "You are not authorized"
+                    showToastLiveData.value = true
                 }
 
             } else if (response is Throwable) {

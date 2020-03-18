@@ -1,14 +1,10 @@
 package com.erdin.connectin.hiring
 
-import android.R
-import android.content.Context
+
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.erdin.connectin.projects.ProjectsApiService
-import com.erdin.connectin.projects.ProjectsModel
 import com.erdin.connectin.projects.ProjectsResponse
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -17,18 +13,14 @@ class AddHireViewModel : ViewModel(), CoroutineScope {
 
     val addHireLiveData = MutableLiveData<Boolean>()
     val listSpinLiveData = MutableLiveData<List<SpinProject>>()
-    val adapterSpinnerLiveData = MutableLiveData<ArrayAdapter<String?>>()
+    val msgToastLiveData = MutableLiveData<String>()
+    val showToastLiveData = MutableLiveData<Boolean>()
 
-    private lateinit var mContext: Context
     private lateinit var service: AddHireApiService
     private lateinit var mService: ProjectsApiService
 
     override val coroutineContext: CoroutineContext
         get() = Job() + Dispatchers.Main
-
-    fun setContext(context: Context) {
-        this.mContext = context
-    }
 
     fun setAddHireService(service: AddHireApiService?) {
         if (service != null) {
@@ -43,7 +35,6 @@ class AddHireViewModel : ViewModel(), CoroutineScope {
     }
 
     fun addHire(idProject : String, idEngineer: String?, fee: String, projectJob: String) {
-        launch {
             launch {
                 val response = withContext(Dispatchers.IO) {
                     try {
@@ -52,7 +43,8 @@ class AddHireViewModel : ViewModel(), CoroutineScope {
                         e.printStackTrace()
 
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(mContext, "Add hire failed!", Toast.LENGTH_LONG).show()
+                            msgToastLiveData.value = "Add Hire Failed!"
+                            showToastLiveData.value = true
                         }
                     }
                 }
@@ -61,13 +53,14 @@ class AddHireViewModel : ViewModel(), CoroutineScope {
                     if (response.status == 200) {
                         addHireLiveData.value = true
 
-                        Toast.makeText(mContext, "Add hire Success", Toast.LENGTH_LONG).show()
+                        msgToastLiveData.value = "Add hire Success"
+                        showToastLiveData.value = true
                     } else if (response is Throwable) {
                         Log.d("errorApi", response.message ?: "Error")
                     }
                 }
             }
-        }
+
     }
 
     fun getSpinnerProject() {
@@ -79,7 +72,8 @@ class AddHireViewModel : ViewModel(), CoroutineScope {
                     e.printStackTrace()
 
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(mContext, "Add hire failed!", Toast.LENGTH_LONG).show()
+                        msgToastLiveData.value = "Add hire failed!"
+                        showToastLiveData.value = true
                     }
                 }
             }
@@ -89,11 +83,6 @@ class AddHireViewModel : ViewModel(), CoroutineScope {
                     SpinProject(it.idProject, it.projectName)
                 }
 
-                val adapter = ArrayAdapter(mContext,
-                    R.layout.simple_spinner_item, listSpinLiveData.value!!.map { it.projectName })
-
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    adapterSpinnerLiveData.value = adapter
             } else if (response is Throwable) {
                 Log.d("errorApi", response.message ?: "Error")
             }

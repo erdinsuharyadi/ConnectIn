@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -37,12 +38,11 @@ class ProjectsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project, container, false)
         binding.rvProjects.adapter = ProjectsAdapter()
         binding.rvProjects.layoutManager = LinearLayoutManager(parentFragment?.context, RecyclerView.VERTICAL, false)
-        binding.toolbar.setTitle("Projects")
+        binding.toolbar.title = "Projects"
 
 
         val mContext = parentFragment?.context!!
         val service = ApiClient.getApiClient(mContext)?.create(ProjectsApiService::class.java)
-        projectsViewModel.setContext(mContext)
         projectsViewModel.setService(service)
         projectsViewModel.projectListApi()
 
@@ -71,6 +71,12 @@ class ProjectsFragment : Fragment() {
 
         projectsViewModel.isLoadingLiveData.observe(viewLifecycleOwner, Observer {
             binding.pbProjects.visibility = if(it) View.VISIBLE else View.GONE
+        })
+
+        projectsViewModel.showToastLiveData.observe(viewLifecycleOwner, Observer {
+            projectsViewModel.msgToastLiveData.observe(viewLifecycleOwner, Observer {
+                Toast.makeText(parentFragment?.context, it, Toast.LENGTH_LONG).show()
+            })
         })
     }
 }

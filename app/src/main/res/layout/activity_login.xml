@@ -73,7 +73,6 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="25dp"
                 android:text="Don't have an account? Register Now"/>
-
         </LinearLayout>
     </ScrollView>
 </layout>

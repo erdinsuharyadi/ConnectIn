@@ -14,10 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.erdin.connectin.ApiClient
-import com.erdin.connectin.BoardActivity
-import com.erdin.connectin.MainActivity
-import com.erdin.connectin.R
+import com.erdin.connectin.*
 import com.erdin.connectin.auth.AuthApiService
 import com.erdin.connectin.databinding.FragmentProfileBinding
 import com.erdin.connectin.engineers.EngineersApiService
@@ -28,6 +25,7 @@ class ProfileFragment: Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
+    private lateinit var sharedPreference: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,13 +34,14 @@ class ProfileFragment: Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        binding.toolbar.title = "Profile"
 
-        binding.toolbar.setTitle("Profile")
 
         val mContext = parentFragment?.context!!
         val service = ApiClient.getApiClient(mContext)?.create(ProfileApiService::class.java)
         val authService = ApiClient.getApiClient(mContext)?.create(AuthApiService::class.java)
-        profileViewModel.setContext(mContext)
+        sharedPreference = SharedPreference(mContext)
+        profileViewModel.setSharedPreference(sharedPreference)
         profileViewModel.setProfileService(service)
         if (authService != null) profileViewModel.setAuthService(authService)
         profileViewModel.profileApi()
@@ -98,6 +97,12 @@ class ProfileFragment: Fragment() {
                 startActivity(intent)
                 activity?.finish()
             }
+        })
+
+        profileViewModel.showToastLiveData.observe(viewLifecycleOwner, Observer {
+            profileViewModel.msgToastLiveData.observe(viewLifecycleOwner, Observer {
+                Toast.makeText(parentFragment?.context, it, Toast.LENGTH_LONG).show()
+            })
         })
     }
 

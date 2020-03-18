@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -50,7 +51,6 @@ class AddProjectActivity : AppCompatActivity() {
 
         val service = ApiClient.getApiClient(this)?.create(ProjectsApiService::class.java)
 
-        viewModel.setContext(this)
         viewModel.setAddProjectService(service)
 
         selectedDate = "$year-$month-$day"
@@ -86,11 +86,17 @@ class AddProjectActivity : AppCompatActivity() {
     private fun subscribeLiveData() {
         viewModel.addProjectLiveData.observe(this, androidx.lifecycle.Observer {
             if (it) {
+                Toast.makeText(this, "Add hire Success", Toast.LENGTH_LONG).show()
                 val resulIntent = Intent()
                 setResult(Activity.RESULT_OK, resulIntent)
                 onBackPressed()
-                finish()
             }
+        })
+
+        viewModel.showToastLiveData.observe(this, androidx.lifecycle.Observer {
+            viewModel.msgToastLiveData.observe(this, androidx.lifecycle.Observer {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            })
         })
     }
 
